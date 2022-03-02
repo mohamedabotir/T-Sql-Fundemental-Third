@@ -118,3 +118,94 @@ insert into Instructor (Ins_Id,Ins_Name,Ins_Degree,Salary,Dept_Id) values (17,'_
 select Ins_Name from Instructor where ins_name like N'%!_%' escape '!' -- for search about wildcard we use escape or  []
 
 select Ins_Name from Instructor where ins_name like N'%[_]%'
+
+
+ 
+select Cast('2007-02-15 12:30:12' as datetimeoffset(7)) -- 7 mean acuuracy to 100 nanoseconds
+
+select name,description from sys.fn_helpcollations()
+
+set language british
+select Cast('02-8-2022 12:30:12' as datetimeoffset(7))
+
+set language us_english
+select Cast('02-8-2022 12:30:12' as datetimeoffset(7))
+
+
+select convert(datetime,'02-8-2022 12:30:12',101) --mm/dd/yyyy
+
+SELECT PARSE('02/12/2007' AS DATETIME USING 'en-US');
+/*
+return null if can't parse or convert or cast
+try_cast
+try_parse
+try_convert
+*/
+/*
+GETDATE, 
+CURRENT_TIMESTAMP, GETUTCDATE, SYSDATETIME, SYSUTCDATETIME, SYSDATETIMEOFFSET, CAST, 
+CONVERT, SWITCHOFFSET, TODATETIMEOFFSET, DATEADD, DATEDIFF, DATEPART, YEAR, MONTH, 
+DAY, DATENAME, various FROMPARTS functions, and EOMONTH. 
+The functions SYSDATETIME, SYSUTCDATETIME, SYSDATETIMEOFFSET, SWITCHOFFSET, and 
+TODATETIMEOFFSET were introduced in SQL Server 2008. Existing functions were enhanced 
+to support the newer types and parts. The various FROMPARTS functions and the EOMONTH
+function were introduced in SQL Server 2012. 
+*/
+
+select getdate()
+select CURRENT_TIMESTAMP
+select GETUTCDATE()
+select SYSDATETIME()
+select SYSDATETIMEOFFSET()
+
+select SWITCHOFFSET(SYSDATETIMEOFFSET(),'-02:00')
+
+select todatetimeoffset(SYSDATETIME(),'-02:00') -- merge only put datetime beside timezone only
+
+select DATEADD(year,1,'20220203')
+
+select datediff(MONTH,'20220203','20220903')
+
+select datepart(MONTH,'20220203') 
+
+select datepart(MONTH,'20220203')  where year('20220203') = 2022
+
+select DATENAME(MONTH,'20220203')
+
+select ISDATE('20220203')
+
+
+
+
+/*
+
+DATEFROMPARTS (year, month, day)
+DATETIME2FROMPARTS (year, month, day, hour, minute, seconds, fractions, precision)
+DATETIMEFROMPARTS (year, month, day, hour, minute, seconds, milliseconds)
+DATETIMEOFFSETFROMPARTS (year, month, day, hour, minute, seconds, fractions, hour_offset, minute_offset, precision)
+SMALLDATETIMEFROMPARTS (year, month, day, hour, minute)
+TIMEFROMPARTS (hour, minute, seconds, fractions, precision)
+*/
+
+select DATEFROMPARTS(2022,02,03)
+
+select EOMONTH('20220203')
+
+
+SELECT schema_name(SCHEMA_ID) [schema name] ,name AS table_name
+FROM sys.tables;
+
+
+select name ,TYPE_NAME(system_type_id),max_length,collation_name,is_nullable from sys.columns where object_id = OBJECT_ID(N'Course')
+
+
+SELECT 
+ COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, 
+ COLLATION_NAME, IS_NULLABLE 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = N'Course' 
+ 
+
+ SELECT 
+ TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES 
