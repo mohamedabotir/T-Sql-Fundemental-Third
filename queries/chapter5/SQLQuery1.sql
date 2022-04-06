@@ -45,4 +45,31 @@ go
 alter view inst_view with encryption 
 as 
 select Ins_Id ,Ins_Name from Instructor;
+go;
+--schemabinding option this option restrict from drop table view  depend on it and restrict view from alter column
 
+--create view inst_view_  with schemabinding as select Ins_Id ,Ins_Name from Instructor;
+
+
+--with check option is useful when prevent insert for specific value 
+
+alter view inst_view with schemabinding 
+as 
+select Ins_Id ,Ins_Name,Ins_Degree,Salary,Dept_Id from dbo.Instructor where Ins_Degree = N'Master' with check option; 
+go;
+
+insert into inst_view (Ins_Id ,Ins_Name,Ins_Degree,Salary,Dept_Id) values(16,N'ramez','PHD',4500,10);
+
+
+--tfs(table valued function)
+go;
+create function getInsId
+(@is_id as int) returns table
+as return 
+select Ins_Id,Ins_Name,Ins_Degree from Instructor where Ins_Id = @is_id;
+go;
+
+select  Ins_Name ,Ins_Degree,Ins_Id from getInsId(16);
+--When you’re done, run the following code for cleanup.
+--IF OBJECT_ID('dbo.GetCustOrders') IS NOT NULL
+--DROP FUNCTION dbo.GetCustOrders;
