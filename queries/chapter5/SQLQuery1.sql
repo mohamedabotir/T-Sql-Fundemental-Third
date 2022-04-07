@@ -73,3 +73,8 @@ select  Ins_Name ,Ins_Degree,Ins_Id from getInsId(16);
 --When you’re done, run the following code for cleanup.
 --IF OBJECT_ID('dbo.GetCustOrders') IS NOT NULL
 --DROP FUNCTION dbo.GetCustOrders;
+
+--apply operator
+select Ins_Id,Ins_Name,Ins_Degree from Instructor as i 
+Cross Apply 
+(select Ins_Id,Crs_Id from Ins_Course as c where c.Ins_Id = i.Ins_Id order by Ins_Id offset 0 rows fetch first 3 rows only)
