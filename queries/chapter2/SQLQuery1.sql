@@ -10,7 +10,7 @@ use iti;
 /*
 delimit identifier using [] or ""
 */
-select  dbo.Course.Top_Id ,dbo.Course.Crs_Duration ,count(Top_Id) as [counts top] from dbo.Course group by dbo.Course.Top_Id,dbo.Course.Crs_Duration order by Top_Id asc;
+select  dbo.Course.Top_Id ,dbo.Course.Crs_Duration ,count(Top_Id) as [counts top] from dbo.Course group by dbo.Course.Top_Id,dbo.Course.Crs_Duration having dbo.Course.Top_Id>20 order by Top_Id asc;
 ---select * from Course;
 --- if you compute thing in side the same syntax is not repeted it computed once like select count(Top_Id) as count from course where count(Top_Id)
 ---a set (or multiset, if it has duplicates)
