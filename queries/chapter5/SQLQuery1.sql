@@ -76,5 +76,5 @@ select  Ins_Name ,Ins_Degree,Ins_Id from getInsId(16);
 
 --apply operator
 select Ins_Id,Ins_Name,Ins_Degree from Instructor as i 
-Cross Apply 
+Outer Apply 
 (select Ins_Id,Crs_Id from Ins_Course as c where c.Ins_Id = i.Ins_Id order by Ins_Id offset 0 rows fetch first 3 rows only)
