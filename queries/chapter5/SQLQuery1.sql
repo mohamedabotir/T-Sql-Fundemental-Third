@@ -29,7 +29,6 @@ uct3 as
 (
 select Ins_Id,Dept_Id as dept_id from uct2
 )
-
 select dept_id,count(name) as count from uct2 as ctes group by dept_id
 
 -- views like ctes but reusable go is separator only not tsql order by 
@@ -57,8 +56,8 @@ alter view inst_view with schemabinding
 as 
 select Ins_Id ,Ins_Name,Ins_Degree,Salary,Dept_Id from dbo.Instructor where Ins_Degree = N'Master' with check option; 
 go;
-
-insert into inst_view (Ins_Id ,Ins_Name,Ins_Degree,Salary,Dept_Id) values(16,N'ramez','PHD',4500,10);
+--allow insert for only Master
+insert into inst_view (Ins_Id ,Ins_Name,Ins_Degree,Salary,Dept_Id) values(106,N'ramez','PHD',4500,10);
 
 
 --tfs(table valued function)
