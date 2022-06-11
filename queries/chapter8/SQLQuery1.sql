@@ -113,3 +113,34 @@ FROM dbo.OrderDetails AS OD
  JOIN dbo.Orders AS O
  ON OD.orderid = O.orderid
 WHERE O.custid = 1;
+
+--Merge
+--when matched ,when not matched is fire when source not matched ,when not matched by source fire when not matched by target
+
+MERGE INTO dbo.Customers AS TGT
+USING dbo.CustomersStage AS SRC
+ON TGT.custid = SRC.custid
+WHEN MATCHED THEN
+UPDATE SET
+TGT.companyname = SRC.companyname,
+TGT.phone = SRC.phone,
+TGT.address = SRC.address
+WHEN NOT MATCHED THEN
+INSERT (custid, companyname, phone, address)
+VALUES (SRC.custid, SRC.companyname, SRC.phone, SRC.address)
+WHEN NOT MATCHED BY SOURCE THEN
+DELETE;
+/*delete row target if not matched */
+
+
+/*
+delete result of ctes
+WITH C AS
+(
+SELECT TOP(50) *
+FROM dbo.Orders
+ORDER BY orderid
+)
+DELETE FROM C;
+
+*/

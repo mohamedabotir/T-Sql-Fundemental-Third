@@ -26,7 +26,7 @@ select  Course.Crs_Duration  from Course order by Crs_Duration desc offset 3 row
 ---can write like  that also
 select  Course.Crs_Duration  from Course order by Crs_Duration desc offset 3 rows fetch first 3 rows only;
 ---************window function*****************---
-select Course.Top_Id,Course.Crs_Duration ,row_number() over(partition by Course.top_id order by course.Crs_Id) from Course 
+select Course.Top_Id,Course.Crs_Duration ,row_number() over(partition by Course.top_id  ) from Course 
 
 ---predicates supported by T-SQL include IN, BETWEEN, and LIKE.
 ---supported operators =, >, <, >=, <=, <>, !=, !>, !<
