@@ -1,5 +1,4 @@
 use TSQL2012;
-
 IF OBJECT_ID('dbo.Orders', 'U') IS NOT NULL DROP TABLE dbo.Orders;
 CREATE TABLE dbo.Orders
 (
