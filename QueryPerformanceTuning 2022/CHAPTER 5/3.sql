@@ -94,9 +94,11 @@ WHERE p.Color = 'Red'
 
 
 
- select s.auto_created,s.user_created,sc.column_id,c.name from sys.stats s join sys.stats_columns sc on s.object_id = sc.object_id and s.stats_id = sc.stats_id
+ select s.auto_created,s.user_created,sc.column_id,c.name from
+ sys.stats s join sys.stats_columns sc on s.object_id = sc.object_id and s.stats_id = sc.stats_id
  join sys.columns c on c.object_id = sc.object_id and c.column_id = sc.column_id
  where s.object_id = OBJECT_ID('Production.Product')
+
  CREATE INDEX IX_Test ON Sales.SalesOrderHeader (PurchaseOrderNumber);
 
  DBCC SHOW_STATISTICS('Sales.SalesOrderHeader', 'IX_Test')
@@ -184,6 +186,9 @@ UPDATE STATISTICS HumanResources.Department ST_GroupName WITH FULLSCAN
 If AUTO_UPDATE_STATISTICS is executed, it uses the persisted sampling percentage if available WITH SAMPLE 100 PERCENT PERSIST_SAMPLE_PERCENT = ON
 
 */
+
+ DBCC SHOW_STATISTICS('HumanResources.Department', 'ST_GroupName')
+
 EXEC sp_autostats
 'HumanResources.Department',
 'OFF',
@@ -198,8 +203,6 @@ DROP STATISTICS HumanResources.Department.ST_GroupName
 3)Since outdated statistics are of no use and can even cause harm to 
 your execution plans, it is important that the estimates used by the 
 optimizer from the statistics are up to date.
-
- 
 */
 --remove plan from cache
  DBCC FREEPROCCACHE(@Planhandle);
